@@ -27,10 +27,11 @@ while running:
 				xGrid = mouse[0]//64
 				yGrid = mouse[1]//64
 				grid.get_mouse(xGrid,yGrid,player)
-				if player == 0:
-					player = 1
-				else:
-					player = 0
+				if grid.switch_player:
+					if player == 0:
+						player = 1
+					else:
+						player = 0
 				#xpos = int((mouse[0])/64.0)
 				#ypos = int((mouse[1])/64.0)
 				#boardh[ypos][xpos]=True

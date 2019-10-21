@@ -5,9 +5,7 @@ class Grid:
 		self.basegrid=pygame.image.load("blueplayer.png")
 		self.clickgrid=pygame.image.load("greenplayer.png")
 		self.clickBomb=pygame.image.load("bomb.png")
-		self.yourTurnGreen=pygame.image.load("greenindicator.png")
-		self.yourTurnRed=pygame.image.load("redindicator.png")
-		self.score_panel=pygame.image.load("score_panel.png")
+	
 
 	#initialize how many grid
 	def __init__(self):
@@ -22,6 +20,7 @@ class Grid:
 				position.append((i,j))
 				self.hasBomb[i][j] = True
 		self.initGraphics()
+		self.switch_player = True
 
 	#draw the grid			
 	def drawBoard(self,screen):
@@ -42,11 +41,19 @@ class Grid:
 		#value should be true or false --> already click?
 
 	def get_mouse(self,x,y,player):
-		if player == 0: #player 1
-			self.set_cell_value(x,y,"p1")
-			#should 0 return false to use in hasBomb?
-		elif player == 1: #player2
-			self.set_cell_value(x,y,"p2")
+		if self.get_cell_value(x,y) == 0:
+			self.switch_player = True
+			if player == 0: #player 1
+				self.set_cell_value(x,y,"p1")
+				#should 0 return false to use in hasBomb?
+			elif player == 1: #player2
+				self.set_cell_value(x,y,"p2")
+		else:
+			self.switch_player = False
+	
+	def check_bomb(self, x ,y , player):
+		pass
+
 
 	def print_grid(self):
 		for row in self.boardh:
