@@ -32,7 +32,7 @@ class Grid:
 				#if not self.boardh[y][x]:
 				#	self.screen.blit(self.basegrid,[(x)*64+5, (y)*64+5])
 				if self.hasBomb[y][x]:
-					screen.blit(self.clickBomb,[(x)*64+5, (y)*64+5])
+					screen.blit(self.clickBomb,[(x)*64+12, (y)*64+14])
 				if not self.boardh[y][x]:
 					screen.blit(self.basegrid,[(x)*64+5, (y)*64+5])
 	
