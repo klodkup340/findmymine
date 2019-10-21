@@ -41,7 +41,7 @@ def waiting_for_connection():
 
 
 grid = Grid()
-menuscreen = MenuScreen()
+#menuscreen = MenuScreen()
 #grid.set_cell_value(1,1,'x')
 
 
@@ -79,7 +79,7 @@ while running:
 				
 
 	screen.fill((0,0,0))
-	self.screen.blit(self.background, (0,0))
+	#self.screen.blit(self.background, (0,0))
 	grid.drawBoard(screen)
 
 	pygame.display.flip()
