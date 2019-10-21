@@ -19,7 +19,7 @@ while running:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			running = False
-		if event.type == pygame.MOUSEBUTTONDOWN:	
+		if event.type == pygame.MOUSEBUTTONDOWN and not grid.game_over:	
 			#print(pygame.mouse.get_pressed())
 			if pygame.mouse.get_pressed()[0]:
 				mouse = pygame.mouse.get_pos()
@@ -27,6 +27,8 @@ while running:
 				xGrid = mouse[0]//64
 				yGrid = mouse[1]//64
 				grid.get_mouse(xGrid,yGrid,player)
+				grid.check_bomb(xGrid,yGrid,player)
+				print(grid.moves)
 				if grid.switch_player:
 					if player == 0:
 						player = 1
@@ -36,6 +38,7 @@ while running:
 				#ypos = int((mouse[1])/64.0)
 				#boardh[ypos][xpos]=True
 				grid.print_grid()
+				
 
 	screen.fill((0,0,0))
 

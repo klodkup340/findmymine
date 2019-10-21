@@ -12,15 +12,18 @@ class Grid:
 		self.boardh = [[False for x in range(6)] for y in range(6)]
 		#create boardh = [[False,False,False,False,False,False],[],[],[],[],[]]
 		#print(self.boardh)
-		position =[]
+		self.position =[]
 		self.hasBomb =[[False for x in range(6)] for y in range(6)]
-		while len(position) <11:
+		while len(self.position) <11:
 			i,j = random.randint(0,5), random.randint(0,5)
-			if(i,j) not in position:
-				position.append((i,j))
+			if(i,j) not in self.position:
+				self.position.append((i,j))
 				self.hasBomb[i][j] = True
 		self.initGraphics()
 		self.switch_player = True
+		self.moves = [0,0]
+		self.game_over = False
+	
 
 	#draw the grid			
 	def drawBoard(self,screen):
@@ -51,8 +54,42 @@ class Grid:
 		else:
 			self.switch_player = False
 	
-	def check_bomb(self, x ,y , player):
-		pass
+	def check_bomb(self, x ,y , player):		
+		if player == 0:
+			if self.hasBomb[y][x]:
+				self.position.pop()
+				self.moves[0] += 1
+			else:
+				self.moves[0] = self.moves[0]
+		else:
+			if self.hasBomb[y][x]:
+				self.position.pop()
+				self.moves[1] += 1
+			else:
+				self.moves[1] = self.moves[1]
+		self.winner()
+		
+
+		
+	
+	def winner(self):
+		if len(self.position) == 0:			
+			if self.moves[0] >= self.moves[1]:
+				print("Player1 wins!")
+				self.game_over = True
+			else:
+				print("Player2 wins!")
+				self.game_over = True
+				
+
+			
+
+
+
+
+
+		
+		
 
 
 	def print_grid(self):
