@@ -68,6 +68,22 @@ class Grid:
 			else:
 				self.moves[1] = self.moves[1]
 		self.winner()
+
+	def clear_grid(self):
+		for y in range (len(self.boardh)):
+			for x in range (len(self.boardh[y])):
+				self.set_cell_value(x ,y , False)
+		
+		for y in range (len(self.hasBomb)):
+			for x in range (len(self.hasBomb[y])):
+				self.position =[]
+				self.hasBomb =[[False for x in range(6)] for y in range(6)]
+				while len(self.position) <11:
+					i,j = random.randint(0,5), random.randint(0,5)
+					if(i,j) not in self.position:
+						self.position.append((i,j))
+						self.hasBomb[i][j] = True
+		self.moves = [0,0]
 		
 
 		

@@ -11,7 +11,7 @@ grid = Grid()
 
 #grid.set_cell_value(1,1,'x')
 
-grid.print_grid()
+
 running = True
 player = 0
 
@@ -38,6 +38,11 @@ while running:
 				#ypos = int((mouse[1])/64.0)
 				#boardh[ypos][xpos]=True
 				grid.print_grid()
+		
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_SPACE and grid.game_over:
+				grid.clear_grid()				
+				grid.game_over = False
 				
 
 	screen.fill((0,0,0))
