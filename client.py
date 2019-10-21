@@ -2,6 +2,8 @@ import pygame
 import math
 import random
 
+
+
 class FindMyMines():
 
 	def initGraphics(self):
