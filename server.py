@@ -80,7 +80,6 @@ while running:
 
 	screen.fill((0,0,0))
 	self.screen.blit(self.background, (0,0))
-
 	grid.drawBoard(screen)
 
 	pygame.display.flip()
