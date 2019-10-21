@@ -1,9 +1,8 @@
 import pygame
-#game.py
-#surface = screen	
 from grid import Grid
 import socket	
 import threading
+from menuscreen import MenuScreen
 
 width, height = 399, 580
 screen = pygame.display.set_mode((width, height))
@@ -42,7 +41,7 @@ def waiting_for_connection():
 
 
 grid = Grid()
-
+menuscreen = MenuScreen()
 #grid.set_cell_value(1,1,'x')
 
 
@@ -80,6 +79,7 @@ while running:
 				
 
 	screen.fill((0,0,0))
+	self.screen.blit(self.background, (0,0))
 
 	grid.drawBoard(screen)
 
