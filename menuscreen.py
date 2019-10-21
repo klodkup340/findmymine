@@ -87,6 +87,7 @@ class MenuScreen:
 
 	def wait_screen(self,screen):
 		screen.fill((128,128,128))
+		self.screen.blit(self.background, (0,0))
 
 		for event in pygame.event.get():
 			#quit if the quit button was pressed
