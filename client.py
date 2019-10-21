@@ -2,44 +2,10 @@ import pygame
 #game.py
 #surface = screen	
 from grid import Grid
-import socket	
-import threading
 
 width, height = 399, 580
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("FindMyMines")
-
-def create_thread(target):
-	thread = threading.Thread(target=target)
-	thread.deamon = True
-	thread.start()
-
-hostname = socket.gethostname()    
-IPAddr = socket.gethostbyname(hostname) 
-
-HOST = IPAddr
-PORT = 65432
-connection_established = False
-conn, addr = None, None
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind((HOST,PORT))
-sock.listen()
-
-def receive_data():
-	pass 
-
-
-def waiting_for_connection():
-	global connection_established, conn ,addr
-	conn, addr = sock.accept() # wait for a connection, it is blocking method
-	print ('Client is connected')
-	connection_established = True
-	receive_data()
-	
-
-
-
 
 grid = Grid()
 
