@@ -36,7 +36,7 @@ def waiting_for_connection():
 	connection_established = True
 	receive_data()
 	
-
+create_thread(waiting_for_connection)
 
 
 
