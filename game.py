@@ -3,7 +3,7 @@ import pygame
 #surface = screen	
 from grid import Grid	
 
-width, height = 389, 580
+width, height = 399, 580
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("FindMyMines")
 

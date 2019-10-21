@@ -79,16 +79,7 @@ class Grid:
 				self.game_over = True
 			else:
 				print("Player2 wins!")
-				self.game_over = True
-				
-
-			
-
-
-
-
-
-		
+				self.game_over = True	
 		
 
 
