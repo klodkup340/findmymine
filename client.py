@@ -10,9 +10,8 @@ class FindMyMines():
 		self.basegrid=pygame.image.load("blueplayer.png")
 		self.clickgrid=pygame.image.load("greenplayer.png")
 		self.clickBomb=pygame.image.load("bomb.png")
-		self.yourTurnGreen=pygame.image.load("greenindicator.png")
-		self.yourTurnRed=pygame.image.load("redindicator.png")
-		self.score_panel=pygame.image.load("score_panel.png")
+		
+	
 
 
 	def __init__(self):
