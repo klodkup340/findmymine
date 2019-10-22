@@ -7,6 +7,7 @@ from menuscreen import MenuScreen
 width, height = 399, 580
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("FindMyMines")
+background = pygame.image.load("spaceBG.png")
 
 def create_thread(target):
 	thread = threading.Thread(target=target)
@@ -25,17 +26,28 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((HOST,PORT))
 sock.listen()
 
-def receive_data():
-	pass 
+def receieve_data():
+	global turn
+	while True:
+		data = conn.recv(1024).decode()
+		data = data.split('-') #split received data with dash
+		#xGrid-yGrid-yourturn-PLaying
+		x,y = int(data[0]) , int(data[1])
+		if data[2] == 'yourturn': #if it is your turn then turn is true
+			turn = True
+		if data[3] == 'False':
+			grid.game_over = True 
+		if grid.get_cell_value(x,y) == False:
+			grid.set_cell_value(x,y,True)
+		print(data)
 
-
-def waiting_for_connection():
-	global connection_established, conn ,addr
-	conn, addr = sock.accept() # wait for a connection, it is blocking method
-	print ('Client is connected')
+def waiting_for_connection(): 
+	global connection_established, conn, addr
+	conn,addr = sock.accept() #Wait for connection, it is a blocking method
+	print('Client is connected')
 	connection_established = True
-	receive_data()
-	
+	receieve_data()
+
 create_thread(waiting_for_connection)
 
 
@@ -47,30 +59,29 @@ grid = Grid()
 
 running = True
 player = 0
+turn = True
+playing = "True"
 
 while running:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			running = False
-		if event.type == pygame.MOUSEBUTTONDOWN and not grid.game_over:	
+		if event.type == pygame.MOUSEBUTTONDOWN and connection_established:	#not grid.game_over
 			#print(pygame.mouse.get_pressed())
 			if pygame.mouse.get_pressed()[0]:
-				mouse = pygame.mouse.get_pos()
-				print(mouse[0]//64 ,mouse[1]//64)
-				xGrid = mouse[0]//64
-				yGrid = mouse[1]//64
-				grid.get_mouse(xGrid,yGrid,player)
-				grid.check_bomb(xGrid,yGrid,player)
-				print(grid.moves)
-				if grid.switch_player:
-					if player == 0:
-						player = 1
-					else:
-						player = 0
-				#xpos = int((mouse[0])/64.0)
-				#ypos = int((mouse[1])/64.0)
-				#boardh[ypos][xpos]=True
+				if turn and not grid.game_over:
+					mouse = pygame.mouse.get_pos()
+					print(mouse[0]//64 ,mouse[1]//64)
+					xGrid = mouse[0]//64
+					yGrid = mouse[1]//64
+					grid.get_mouse(xGrid,yGrid,player)
+					grid.check_bomb(xGrid,yGrid,player)
+
+					send_data = '{}-{}-{}-{}'.format(xGrid,yGrid,'yourturn', playing).encode() #this returns string #send data to socket
+					conn.send(send_data) #conn object is create when client is connected
+					turn = False
 				grid.print_grid()
+				
 		
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_SPACE and grid.game_over:
@@ -79,7 +90,7 @@ while running:
 				
 
 	screen.fill((0,0,0))
-	#self.screen.blit(self.background, (0,0))
+	screen.blit(background, (0,0))
 	grid.drawBoard(screen)
 
 	pygame.display.flip()
